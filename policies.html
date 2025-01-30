@@ -23,9 +23,37 @@
 
     <!-- Conteúdo Principal -->
     <div class="container">
-        <div class="info-text">
-            Somente baselines que possuem políticas em Windows Settings serão filtradas!
+        <!-- Passo a Passo Explicativo -->
+        <div class="step-by-step">
+            <h2>Como usar esta ferramenta:</h2>
+            <ol>
+                <li>
+                    <strong>Obtenha o arquivo de baseline:</strong>
+                    Baixe as baselines de segurança do Windows no site oficial da Microsoft:
+                    <a href="https://learn.microsoft.com/en-us/windows/security/threat-protection/security-compliance-toolkit-10" target="_blank" rel="noopener noreferrer">
+                        Microsoft Security Compliance Toolkit
+                    </a>.
+                </li>
+                <li>
+                    <strong>Encontre o arquivo .htm:</strong>
+                    Após baixar e extrair o pacote de baselines, navegue até a pasta:
+                    <code>Downloads\Windows 11 Security Baseline\Windows11-Security-Baseline-FINAL\GP Reports</code>.
+                </li>
+                <li>
+                    <strong>Importe o arquivo:</strong>
+                    Clique no botão abaixo para carregar o arquivo <strong>.htm</strong> da pasta mencionada.
+                </li>
+                <li>
+                    <strong>Visualize as políticas:</strong>
+                    Após a importação, as políticas de nível de <strong>Computador</strong> e <strong>Configurações do Windows</strong> serão exibidas em cards.
+                </li>
+            </ol>
+            <p class="note">
+                <strong>Observação:</strong> Somente políticas de nível de computador e Configurações do Windows (Windows Settings) são filtradas nesta ferramenta. As políticas referem-se ao recurso Group Policy Management.
+            </p>
         </div>
+
+        <!-- Filtro e Botões -->
         <div class="file-input-container">
             <input type="file" id="fileInput" accept=".htm">
             <button id="importButton">Importar Arquivo .htm</button>

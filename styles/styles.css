@@ -267,3 +267,58 @@ footer a:hover {
     margin-left: auto;
     margin-right: auto; /* Centraliza o ícone */
 }
+
+/* Estilos para o passo a passo */
+.step-by-step {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.step-by-step h2 {
+    margin-top: 0;
+    color: #2c3e50;
+    font-size: 1.5em;
+    margin-bottom: 15px;
+}
+
+.step-by-step ol {
+    padding-left: 20px;
+    margin-bottom: 15px;
+}
+
+.step-by-step ol li {
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.step-by-step ol li strong {
+    color: #2c3e50;
+}
+
+.step-by-step a {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.step-by-step a:hover {
+    text-decoration: underline;
+}
+
+.step-by-step code {
+    background-color: #f4f4f4;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-family: monospace;
+    color: #333;
+}
+
+.step-by-step .note {
+    font-style: italic;
+    color: #777;
+    margin-top: 15px;
+}
