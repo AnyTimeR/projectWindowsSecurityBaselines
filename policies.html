@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ATM - Policies</title>
+    <!-- Ícone da página (favicon) -->
+    <link rel="icon" href="assets/images/ATM-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
@@ -29,7 +31,7 @@
             <ol>
                 <li>
                     <strong>Obtenha o arquivo de baseline:</strong>
-                    Baixe as baselines de segurança do Windows no site oficial da Microsoft:
+                    Baixe as baselines de segurança do Windows recomendadas no site oficial da Microsoft:
                     <a href="https://learn.microsoft.com/en-us/windows/security/threat-protection/security-compliance-toolkit-10" target="_blank" rel="noopener noreferrer">
                         Microsoft Security Compliance Toolkit
                     </a>.
@@ -53,14 +55,53 @@
             </p>
         </div>
 
+        <!-- Filtros Avançados -->
+        <div class="filters-container">
+            <div class="filter-group">
+                <label for="categoryFilter">Filtrar por Categoria:</label>
+                <select id="categoryFilter">
+                    <option value="">Todas as Categorias</option>
+                    <option value="Account Policies/Account Lockout Policy">Account Policies/Account Lockout Policy</option>
+                    <option value="Account Policies/Password Policy">Account Policies/Password Policy</option>
+                    <option value="Advanced Audit Configuration">Advanced Audit Configuration</option>
+                    <option value="Application Control Policies">Application Control Policies</option>
+                    <option value="Local Policies/Security Options">Local Policies/Security Options</option>
+                    <option value="Local Policies/User Rights Assignment">Local Policies/User Rights Assignment</option>
+                    <option value="System Services">System Services</option>
+                    <option value="Windows Firewall with Advanced Security">Windows Firewall with Advanced Security</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="statusFilter">Filtrar por Status:</label>
+                <select id="statusFilter">
+                    <option value="">Todos os Status</option>
+                    <option value="Enabled">Enabled</option>
+                    <option value="Disabled">Disabled</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="filterInput">Buscar por Texto:</label>
+                <input type="text" id="filterInput" placeholder="Digite para buscar...">
+            </div>
+        </div>
+
         <!-- Filtro e Botões -->
         <div class="file-input-container">
             <input type="file" id="fileInput" accept=".htm">
             <button id="importButton">Importar Arquivo .htm</button>
         </div>
-        <input type="text" id="filterInput" placeholder="Filtrar políticas...">
+
+        <!-- Cards de Políticas -->
         <div id="cardsContainer"></div>
     </div>
+
+    <section id="references">
+        <h2>Referências</h2>
+        <ul>
+            <li><a href="https://learn.microsoft.com/pt-br/windows/security/operating-system-security/device-management/windows-security-configuration-framework/windows-security-baselines" target="_blank">Documentação de Baselines da Microsoft</a></li>
+            <li><a href="https://learn.microsoft.com/pt-br/windows-server/identity/ad-ds/manage/group-policy/group-policy-overview" target="_blank">Documentação de Políticas de Grupo da Microsoft</a></li>
+        </ul>
+    </section>
 
     <!-- Footer -->
     <footer>

@@ -1,6 +1,6 @@
-# Windows Security Baseline Dashboard
+# ATM - Windows Security Baselines
 
-O **Windows Security Baselines** é uma ferramenta web que permite visualizar e filtrar políticas e configurações de segurança do Windows a partir de arquivos `.htm` gerados pelo **Microsoft Security Compliance Toolkit**. Ele é projetado para ajudar administradores de sistemas e profissionais de segurança a padronizar, proteger e fortalecer suas infraestruturas com políticas configuradas para máxima segurança e conformidade.
+O **ATM - Windows Security Baselines** é uma ferramenta web que permite visualizar e filtrar políticas e configurações de segurança do Windows a partir de arquivos `.htm` gerados pelo **Microsoft Security Compliance Toolkit**. Ele é projetado para ajudar administradores de sistemas e profissionais de segurança a padronizar, proteger e fortalecer suas infraestruturas com políticas configuradas para máxima segurança e conformidade.
 
 ---
 

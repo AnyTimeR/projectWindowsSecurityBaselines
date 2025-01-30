@@ -1,17 +1,16 @@
 document.addEventListener('DOMContentLoaded', function() {
     const fileInput = document.getElementById('fileInput');
     const importButton = document.getElementById('importButton');
-    const filterInput = document.getElementById('filterInput');
 
-    // Desabilita o botão de importar inicialmente
+    // Desabilita o botão de importação inicialmente
     importButton.disabled = true;
 
-    // Habilita o botão de importar quando um arquivo é selecionado
+    // Habilita o botão de importação quando um arquivo é selecionado
     fileInput.addEventListener('change', function() {
         if (fileInput.files.length > 0) {
-            importButton.disabled = false; // Habilita o botão
+            importButton.disabled = false;
         } else {
-            importButton.disabled = true; // Desabilita o botão se nenhum arquivo estiver selecionado
+            importButton.disabled = true;
         }
     });
 
@@ -24,10 +23,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 const content = e.target.result;
                 const parser = new DOMParser();
                 const htmlDoc = parser.parseFromString(content, 'text/html');
-                console.log(htmlDoc); // Depuração: Verifique o conteúdo do arquivo .htm
                 const policies = extractPolicies(htmlDoc);
-                console.log(policies); // Depuração: Verifique as políticas extraídas
                 displayPolicies(policies);
+                setupFilters(policies); // Configura os filtros após carregar as políticas
                 importButton.disabled = true; // Desabilita o botão após a importação
             };
             reader.readAsText(file);
@@ -35,58 +33,35 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Por favor, selecione um arquivo .htm para importar.');
         }
     });
-
-    // Filtra as políticas ao digitar no campo de filtro
-    filterInput.addEventListener('input', function() {
-        const filter = this.value.toLowerCase();
-        const cards = document.querySelectorAll('.card');
-        cards.forEach(card => {
-            const policyName = card.querySelector('h3').textContent.toLowerCase();
-            if (policyName.includes(filter)) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    });
 });
 
 function extractPolicies(htmlDoc) {
     const policies = [];
-    // Encontre a seção "Computer Configuration"
-    const computerConfigSection = Array.from(htmlDoc.querySelectorAll('.sectionTitle')).find(el => el.textContent.includes('Computer Configuration'));
-    if (computerConfigSection) {
-        console.log('Seção "Computer Configuration" encontrada.'); // Depuração
-        // Navegue até o próximo container
-        let container = computerConfigSection.closest('div').nextElementSibling;
-        while (container && !container.classList.contains('container')) {
-            container = container.nextElementSibling;
-        }
-        if (container) {
-            // Extraia todas as políticas dentro de "Computer Configuration"
-            const tables = container.querySelectorAll('table.info');
-            tables.forEach(table => {
-                const rows = table.querySelectorAll('tr');
-                rows.forEach((row, index) => {
-                    // Ignora o cabeçalho da tabela (primeira linha)
-                    if (index > 0) {
-                        const cells = row.querySelectorAll('td');
-                        if (cells.length >= 2) {
-                            const policyName = cells[0].textContent.trim();
-                            const policySetting = cells[1].textContent.trim();
-                            // Extrai o caminho completo da política
-                            const path = getPolicyPath(row);
-                            policies.push({ name: policyName, setting: policySetting, path: path });
-                        }
+    const tables = htmlDoc.querySelectorAll('table.info');
+    tables.forEach(table => {
+        const rows = table.querySelectorAll('tr');
+        rows.forEach((row, index) => {
+            if (index > 0) { // Ignora o cabeçalho da tabela
+                const cells = row.querySelectorAll('td');
+                if (cells.length >= 2) {
+                    const policyName = cells[0].textContent.trim();
+                    const policySetting = cells[1].textContent.trim();
+                    const policyPath = getPolicyPath(row);
+
+                    // Filtra apenas políticas de "Computer Configuration"
+                    if (policyPath.includes('Computer Configuration') && !policyPath.includes('General')) {
+                        const category = getCategoryFromPath(policyPath);
+                        policies.push({
+                            name: policyName,
+                            setting: policySetting,
+                            path: policyPath,
+                            category: category // Categoria extraída do caminho
+                        });
                     }
-                });
-            });
-        } else {
-            console.log('Container de políticas não encontrado.'); // Depuração
-        }
-    } else {
-        console.log('Seção "Computer Configuration" não encontrada.'); // Depuração
-    }
+                }
+            }
+        });
+    });
     return policies;
 }
 
@@ -103,7 +78,31 @@ function getPolicyPath(row) {
     return path.join(' > ');
 }
 
+function getCategoryFromPath(path) {
+    // Extrai a categoria do caminho
+    const categories = [
+        "Account Policies/Account Lockout Policy",
+        "Account Policies/Password Policy",
+        "Advanced Audit Configuration",
+        "Application Control Policies",
+        "Local Policies/Security Options",
+        "Local Policies/User Rights Assignment",
+        "System Services",
+        "Windows Firewall with Advanced Security"
+    ];
+
+    for (const category of categories) {
+        if (path.includes(category)) {
+            return category;
+        }
+    }
+    return "Outros"; // Caso a categoria não seja encontrada
+}
+
 function displayPolicies(policies) {
+    // Ordena as políticas em ordem alfabética pelo nome
+    policies.sort((a, b) => a.name.localeCompare(b.name));
+
     const cardsContainer = document.getElementById('cardsContainer');
     cardsContainer.innerHTML = '';
     policies.forEach(policy => {
@@ -116,4 +115,33 @@ function displayPolicies(policies) {
         `;
         cardsContainer.appendChild(card);
     });
+}
+
+function setupFilters(policies) {
+    const categoryFilter = document.getElementById('categoryFilter');
+    const statusFilter = document.getElementById('statusFilter');
+    const filterInput = document.getElementById('filterInput');
+
+    const applyFilters = () => {
+        const selectedCategory = categoryFilter.value.toLowerCase();
+        const selectedStatus = statusFilter.value.toLowerCase();
+        const searchText = filterInput.value.toLowerCase();
+
+        const filteredPolicies = policies.filter(policy => {
+            const matchesCategory = selectedCategory ? policy.category.toLowerCase().includes(selectedCategory) : true;
+            const matchesStatus = selectedStatus ? policy.setting.toLowerCase() === selectedStatus : true;
+            const matchesSearch = searchText ? 
+                policy.name.toLowerCase().includes(searchText) || 
+                policy.setting.toLowerCase().includes(searchText) || 
+                policy.path.toLowerCase().includes(searchText) : true;
+
+            return matchesCategory && matchesStatus && matchesSearch;
+        });
+
+        displayPolicies(filteredPolicies);
+    };
+
+    categoryFilter.addEventListener('change', applyFilters);
+    statusFilter.addEventListener('change', applyFilters);
+    filterInput.addEventListener('input', applyFilters);
 }
