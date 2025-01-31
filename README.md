@@ -56,6 +56,4 @@ O **ATM - Windows Security Baselines** é uma ferramenta web que permite visuali
 
 ---
 
-## Próximos Passos
-
-- Converter arquivos de baseline .htm para .inf.
+## Em construção...
