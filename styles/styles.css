@@ -387,3 +387,45 @@ footer a:hover {
 #references ul li a:hover {
     text-decoration: underline;
 }
+
+/* Cores para cada caminho */
+.card[data-category="Account Policies/Account Lockout Policy"] {
+    background-color: #e3f2fd; /* Azul claro */
+}
+
+.card[data-category="Account Policies/Password Policy"] {
+    background-color: #f3e5f5; /* Roxo claro */
+}
+
+.card[data-category="Advanced Audit Configuration"] {
+    background-color: #fff3e0; /* Laranja claro */
+}
+
+.card[data-category="Application Control Policies"] {
+    background-color: #e8f5e9; /* Verde claro */
+}
+
+.card[data-category="Local Policies/Security Options"] {
+    background-color: #ffebee; /* Vermelho claro */
+}
+
+.card[data-category="Local Policies/User Rights Assignment"] {
+    background-color: #f5f5f5; /* Cinza claro */
+}
+
+.card[data-category="System Services"] {
+    background-color: #e0f7fa; /* Ciano claro */
+}
+
+.card[data-category="Windows Firewall with Advanced Security"] {
+    background-color: #fce4ec; /* Rosa claro */
+}
+
+/* Estilo base do card */
+.card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 8px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

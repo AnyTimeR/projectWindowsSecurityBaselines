@@ -58,9 +58,9 @@
         <!-- Filtros Avançados -->
         <div class="filters-container">
             <div class="filter-group">
-                <label for="categoryFilter">Filtrar por Categoria:</label>
+                <label for="categoryFilter">Filtrar por Caminho:</label> <!-- Alterado para "Caminho" -->
                 <select id="categoryFilter">
-                    <option value="">Todas as Categorias</option>
+                    <option value="">Todos os Caminhos</option>
                     <option value="Account Policies/Account Lockout Policy">Account Policies/Account Lockout Policy</option>
                     <option value="Account Policies/Password Policy">Account Policies/Password Policy</option>
                     <option value="Advanced Audit Configuration">Advanced Audit Configuration</option>
@@ -72,11 +72,19 @@
                 </select>
             </div>
             <div class="filter-group">
-                <label for="statusFilter">Filtrar por Status:</label>
+                <label for="statusFilter">Filtrar por Setting:</label> <!-- Alterado para "Setting" -->
                 <select id="statusFilter">
-                    <option value="">Todos os Status</option>
-                    <option value="Enabled">Enabled</option>
+                    <option value="">Todos os Settings</option>
+                    <option value="Allow">Allow</option>
+                    <option value="Block">Block</option>
                     <option value="Disabled">Disabled</option>
+                    <option value="Enabled">Enabled</option>
+                    <option value="Failure">Failure</option>
+                    <option value="No">No</option>
+                    <option value="Not Configured">Not Configured</option>
+                    <option value="Success">Success</option>
+                    <option value="Success, Failure">Success, Failure</option>
+                    <option value="Yes">Yes</option>
                 </select>
             </div>
             <div class="filter-group">

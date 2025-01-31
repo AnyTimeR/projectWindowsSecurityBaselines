@@ -108,6 +108,7 @@ function displayPolicies(policies) {
     policies.forEach(policy => {
         const card = document.createElement('div');
         card.className = 'card';
+        card.setAttribute('data-category', policy.category); // Adiciona o atributo data-category
         card.innerHTML = `
             <h3>${policy.name}</h3>
             <p><strong>Setting:</strong> ${policy.setting}</p>
